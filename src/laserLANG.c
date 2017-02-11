@@ -15,6 +15,18 @@ enum MOVEMENT
   left
 };
 
+int skip_comment(FILE *fh, char map[][MAP_MAX_X], int8_t map_y)
+{
+  char c = '0';
+  while (c != '\n')
+  {
+    c = fgetc(fh);
+    if (c == EOF) return 1;
+  }
+
+  return 0;
+}
+
 int read_map(FILE *fh, char map[][MAP_MAX_X])
 {
   int8_t map_x = 0;
@@ -38,18 +50,12 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
     /* Skip shebang, and lines starting with # */
     if (map_x == 0 && c == '#')
     {
-      while (c != '\n')
-      {
-	c = fgetc(fh);
-	if (c == EOF) break;
-      }
+      if (skip_comment(fh, map, map_y) != 0) break;
+
       map_x = 0;
       continue;
     }
 
-    /* Fallthough from above can happen, so keep EOF check just after shebang
-     * and comment removel
-     */
     if (c == EOF) break;
 
     if (c == '\n')

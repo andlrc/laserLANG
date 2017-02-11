@@ -15,7 +15,7 @@ enum MOVEMENT
   left
 };
 
-int skip_comment(FILE *fh, char map[][MAP_MAX_X], int8_t map_y)
+int skip_comment(FILE *fh, char map[][MAP_MAX_X], uint8_t map_y)
 {
   char c = '0';
   while (c != '\n')
@@ -29,29 +29,17 @@ int skip_comment(FILE *fh, char map[][MAP_MAX_X], int8_t map_y)
 
 int read_map(FILE *fh, char map[][MAP_MAX_X])
 {
-  int8_t map_x = 0;
-  int8_t map_y = 0;
+  uint8_t map_x = 0;
+  uint8_t map_y = 0;
 
   for (;;)
   {
-    /* Check outside bound */
-    if (map_y >= MAP_MAX_Y || map_x >= MAP_MAX_X)
-    {
-      fprintf(stderr,
-	      "%s: outside bound (x, y) = (%d, %d), (maxx, maxy) = (%d, %d)\n",
-	      PROGRAM_NAME,
-	      map_x, map_y,
-	      MAP_MAX_X, MAP_MAX_Y);
-      return 1;
-    }
-
     char c = fgetc(fh);
 
     /* Skip shebang, and lines starting with # */
     if (map_x == 0 && c == '#')
     {
       if (skip_comment(fh, map, map_y) != 0) break;
-
       map_x = 0;
       continue;
     }
@@ -61,12 +49,16 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
     if (c == '\n')
     {
       map_x = 0;
+      /* Cannot increase y */
+      if (map_y == MAP_MAX_Y - 1) return 1;
       map_y++;
       continue;
     }
 
     map[map_y][map_x] = c;
 
+    /* Cannot increase x */
+      if (map_x == MAP_MAX_X - 1) return 1;
     map_x++;
   }
 
@@ -75,8 +67,8 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
 
 int shoot_laser(char map[][MAP_MAX_X])
 {
-  int8_t pos_x = 0;
-  int8_t pos_y = 0;
+  uint8_t pos_x = 0;
+  uint8_t pos_y = 0;
   enum MOVEMENT move = right;
 
   int8_t cells[CELLS_MAX] = {0};
@@ -84,10 +76,6 @@ int shoot_laser(char map[][MAP_MAX_X])
 
   for (;;)
   {
-    /* Outside map, stop laser */
-    if (pos_y < 0 || pos_y >= MAP_MAX_Y || pos_x < 0 || pos_x >= MAP_MAX_X)
-      break;
-
     char c = map[pos_y][pos_x];
 
     switch (c)
@@ -252,15 +240,19 @@ int shoot_laser(char map[][MAP_MAX_X])
     switch (move)
     {
       case up:
+	if (pos_y == 0) return 0;
 	pos_y--;
 	break;
       case right:
+	if (pos_x == MAP_MAX_X - 1) return 0;
 	pos_x++;
 	break;
       case down:
+	if (pos_y == MAP_MAX_Y - 1) return 0;
 	pos_y++;
 	break;
       case left:
+	if (pos_x == 0) return 0;
 	pos_x--;
 	break;
     }
@@ -296,7 +288,11 @@ int main(int argc, char *argv[])
   char map[MAP_MAX_Y][MAP_MAX_X];
   int rc = read_map(fh, map);
   fclose(fh);
-  if (rc != 0) return rc;
+  if (rc != 0)
+  {
+    fprintf(stderr, "%s: error in program\n", PROGRAM_NAME);
+    return rc;
+  }
 
   shoot_laser(map);
 }

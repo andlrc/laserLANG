@@ -1,6 +1,6 @@
 .TH laserLANG 1
 .SH "NAME"
-laserLANG \- Another esolang that focus on reflecting a laser
+laserLANG \- An esolang that focus on laser reflection
 .SH "SYNOPSIS"
 laserLANG [programfile]
 .SH "DESCRIPTION"
@@ -8,8 +8,8 @@ laserLANG is a esoteric programming language, which is inspired by marioLANG and
 brainfuck.
 
 .SH "MEMORY MANAGEMENT"
-Each memory cell is an signed 8 bit integer, ranging from [-128, +127], there is
-no overflow protection, making 127 + 1 = -128.
+Each memory cell is an signed char, capable of containing at least the [-127,
++127] range.
 .IP "\fB>\fR" 4
 Move memory pointer right
 .IP "\fB<\fR" 4
@@ -19,33 +19,38 @@ Add one to memory cell under the pointer
 .IP "\fB'\fR" 4
 Subtract one from memory cell under the pointer
 .IP "\fB=\fR" 4
-Output ascii character from the current memory cell
+Output ASCII character from the current memory cell
 .IP "\fB""\fR" 4
 Output numeric value from the current memory cell
 
 .SH "CONTROL FLOW"
 .IP "\fB+\fR" 4
-Turn the direction 90 degree clockwise when the current memory cell is positive,
-counter clockwise when negative.
+Turn the laser 90 degree clockwise when the current memory cell is positive,
+counter clockwise when negative. Continue unhindered when zero.
 .IP "\fB#\fR" 4
-Turn the direction 90 degree counter clockwise when the current memory cell is
-positive, clockwise when negative.
-.IP "\fB/\fR" 4
-Toggle right and up direction, and left and down direction.
-.IP "\fB\e\fR" 4
-Toggle right and down direction, and left and up direction.
+Turn the laser 90 degree counter clockwise when the current memory cell is
+positive, clockwise when negative. Continue unhindered when zero.
+.IP "\fB/\fR and \fB\e\fR" 4
+Consider these as mirrors that are hit from a 45 degree angle. The laser will
+reflect with an angle corresponding to the input angle.
 .IP "\fB-\fR and \fB=\fR" 4
-The laser will stop if it hits any of these while going on the y axis.
+If the laser hits these going on the \fBy axis\fR it will shatter, otherwise it will
+continue unhindered.
 .IP "\fB'\fR and \fB""\fR" 4
-The laser will stop if it hits any of these while going on the x axis.
+If the laser hits these going on the \fBx axis\fR it will shatter, otherwise it will
+continue unhindered.
 .IP "\fB<\fR"
-The laser will stop if it's going right, otherwise it will be going left.
+If the laser hit this going \fBright\fR it will shatter, otherwise it will
+continue towards \fBleft.\fR
 .IP "\fB>\fR"
-The laser will stop if it's going left, otherwise it will be going right.
+If the laser hit this going \fBleft\fR it will shatter, otherwise it will
+continue towards \fBright.\fR
 .IP "\fB^\fR"
-The laser will stop if it's going down, otherwise it will be going up.
+If the laser hit this going \fBdown\fR it will shatter, otherwise it will
+continue towards \fBup\fR.
 .IP "\fBv\fR"
-The laser will stop if it's going up, otherwise it will be going down.
+If the laser hit this going \fBup\fR it will shatter, otherwise it will continue
+towards \fBdown\fR.
 
 .SH "DEBUG"
 .IP "\fBp\fR" 4

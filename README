@@ -47,28 +47,28 @@ CONTROL FLOW
            wise it will continue unhindered.
 
        ' and "
-           If the laser hits these going on the x axis it will shatter, other‐
-           wise it will continue unhindered.
+           If the laser hits going on the x axis it will shatter, otherwise it
+           will continue unhindered.
 
-       ~   If the laser hit this going downwards it will reflect  and  to  the
-           right, if it hits going upwards it will reflect to the left, other‐
-           wise it will continue unhindered.
+       ~   If the laser hits going downwards it will reflect to the right,  if
+           it  hits  going  upwards  it will reflect to the left, otherwise it
+           will continue unhindered.
 
-       s   If the laser hit this going left it will  reflect  upwards,  if  it
-           hits  going right it will reflect downwards, otherwise it will con‐
-           tinue unhindered.
+       s   If the laser hits going left it will reflect upwards,  if  it  hits
+           going  right  it will reflect downwards, otherwise it will continue
+           unhindered.
 
-       <   If the laser hit this going right it  will  shatter,  otherwise  it
-           will continue towards left.
+       <   If the laser hits going right it will shatter,  otherwise  it  will
+           continue towards left.
 
-       >   If the laser hit this going left it will shatter, otherwise it will
+       >   If  the  laser  hits  going left it will shatter, otherwise it will
            continue towards right.
 
-       ^   If the laser hit this going down it will shatter, otherwise it will
+       ^   If the laser hits going down it will  shatter,  otherwise  it  will
            continue towards up.
 
-       v   If  the  laser hit this going up it will shatter, otherwise it will
-           continue towards down.
+       v   If  the laser hits going up it will shatter, otherwise it will con‐
+           tinue towards down.
 
 DEBUG
        p   Will print laser position and memory cell values

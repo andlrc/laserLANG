@@ -11,6 +11,9 @@ DESCRIPTION
        ioLANG and brainfuck.
 
 MEMORY MANAGEMENT
+       Each memory cell is an signed 8 bit integer, ranging from [-128, +127],
+       there is no overflow protection, making 127 + 1 = -128.
+
        >   Move memory pointer right
 
        <   Move memory pointer left
@@ -27,7 +30,7 @@ CONTROL FLOW
        +   Turn the direction 90 degree clockwise when the current memory cell
            is positive, counter clockwise when negative.
 
-       #   Turn  the  direction  90  degree counter clockwise when the current
+       #   Turn the direction 90 degree counter  clockwise  when  the  current
            memory cell is positive, clockwise when negative.
 
        /   Toggle right and up direction, and left and down direction.
@@ -35,23 +38,23 @@ CONTROL FLOW
        \   Toggle right and down direction, and left and up direction.
 
        - and =
-           The laser will stop if it hits any of these while going  on  the  y
+           The  laser  will  stop if it hits any of these while going on the y
            axis.
 
        ' and "
-           The  laser  will  stop if it hits any of these while going on the x
+           The laser will stop if it hits any of these while going  on  the  x
            axis.
 
        <   The laser will stop if it's going right, otherwise it will be going
            left.
 
-       >   The  laser will stop if it's going left, otherwise it will be going
+       >   The laser will stop if it's going left, otherwise it will be  going
            right.
 
-       ^   The laser will stop if it's going down, otherwise it will be  going
+       ^   The  laser will stop if it's going down, otherwise it will be going
            up.
 
-       v   The  laser  will  stop if it's going up, otherwise it will be going
+       v   The laser will stop if it's going up, otherwise it  will  be  going
            down.
 
 DEBUG
@@ -84,7 +87,7 @@ EXAMPLE
 
        ----=   This code outputs '4':
 
-       This gets done because `-' adds one to the memory cell, and `='  prints
+       This  gets done because `-' adds one to the memory cell, and `=' prints
        it.
 
        The first part is a loop:
@@ -94,26 +97,26 @@ EXAMPLE
                  v                    /
                  #>------->---------->--->-/
 
-       The  laser  gets shot in the top left corner moving to the right (Along
+       The laser gets shot in the top left corner moving to the  right  (Along
        the x axis), when it reaches the `\' the first memory cell contains 10.
 
-       The `\' will send the laser downwards where it reaches the  `v',  which
+       The  `\'  will send the laser downwards where it reaches the `v', which
        does nothing when approached from above.
 
-       The  `#' is a junction sending the laser 90 degree counter clockwise if
+       The `#' is a junction sending the laser 90 degree counter clockwise  if
        the memory cell under the pointer is positive.
 
        `>' moves the memory pointer to the right.
 
-       The laser will eventually end at `/', at which point it will  be  redi‐
+       The  laser  will eventually end at `/', at which point it will be redi‐
        rected upwards.
 
        `'' will subtract one from the memory cell under the pointer.
 
        The laser will hit the `v' from the side making it go downwards.
 
-       The  loop  finishes with the values `0', `70', `100', `30', `10' in the
-       memory cells, at which point the `#' junction will do nothing,  as  the
+       The loop finishes with the values `0', `70', `100', `30', `10'  in  the
+       memory  cells,  at which point the `#' junction will do nothing, as the
        cell under the cusor is zero.
 
                                                                   laserLANG(1)

@@ -8,6 +8,8 @@ laserLANG is a esoteric programming language, which is inspired by marioLANG and
 brainfuck.
 
 .SH "MEMORY MANAGEMENT"
+Each memory cell is an signed 8 bit integer, ranging from [-128, +127], there is
+no overflow protection, making 127 + 1 = -128.
 .IP "\fB>\fR" 4
 Move memory pointer right
 .IP "\fB<\fR" 4

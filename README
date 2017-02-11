@@ -87,10 +87,13 @@ EXAMPLE
 
        Output: Hello World!
 
-       ----=   This code outputs '4':
+       The code below outputs 4:
 
-       This gets done because `-' adds one to the memory cell, and `='  prints
-       it.
+       ----\
+           "
+
+       This gets done because `-' adds one to the memory  cell,  `\'  reflects
+       the laser downwards, and `"' prints it's numeric value.
 
        The first part is a loop:
 

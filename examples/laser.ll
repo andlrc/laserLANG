@@ -1,4 +1,4 @@
-#!./laserLANG
+#!/usr/bin/env laserLANG
 # A non iterative way to write: LASER
 \               /                \/\/=-------------=\-----/=------------------=\
                 '   /           \''''               '     '                    '

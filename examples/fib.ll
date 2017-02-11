@@ -1,4 +1,4 @@
-#!./laserLANG
+#!/usr/bin/env laserLANG
 # Generate Fibonacci sequence
 # Output will be as below:
 # 1

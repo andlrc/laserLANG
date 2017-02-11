@@ -22,6 +22,8 @@ Subtract one from memory cell under the pointer
 Output ASCII character from the current memory cell
 .IP "\fB""\fR" 4
 Output numeric value from the current memory cell
+.IP "\fB~\fR and \fBs\fR" 4
+Read ASCII character to current memory cell
 
 .SH "CONTROL FLOW"
 .IP "\fB+\fR" 4
@@ -34,11 +36,18 @@ positive, clockwise when negative. Continue unhindered when zero.
 Consider these as mirrors that are hit from a 45 degree angle. The laser will
 reflect with an angle corresponding to the input angle.
 .IP "\fB-\fR and \fB=\fR" 4
-If the laser hits these going on the \fBy axis\fR it will shatter, otherwise it will
-continue unhindered.
+If the laser hits these going on the \fBy axis\fR it will shatter, otherwise it
+will continue unhindered.
 .IP "\fB'\fR and \fB""\fR" 4
-If the laser hits these going on the \fBx axis\fR it will shatter, otherwise it will
-continue unhindered.
+If the laser hits these going on the \fBx axis\fR it will shatter, otherwise it
+will continue unhindered.
+.IP "\fB~\fR"
+If the laser hit this going downwards it will reflect and to the right, if it
+hits going upwards it will reflect to the left, otherwise it will continue
+unhindered.
+.IP "\fBs\fR"
+If the laser hit this going left it will reflect upwards, if it hits going right
+it will reflect downwards, otherwise it will continue unhindered.
 .IP "\fB<\fR"
 If the laser hit this going \fBright\fR it will shatter, otherwise it will
 continue towards \fBleft.\fR

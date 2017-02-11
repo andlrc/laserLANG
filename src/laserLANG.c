@@ -214,6 +214,24 @@ int shoot_laser(char map[][MAP_MAX_X])
 	    *(cellp + 2), /* Can be out of bound */
 	    cellp);
 	break;
+
+      case '~': /* Read ASCII input character */
+	if (move == up) /* Turn left */
+	  move = left;
+	else if (move == down) /* Turn right */
+	  move = right;
+
+	*cellp = fgetc(stdin);
+	break;
+
+      case 's': /* Read ASCII input character */
+	if (move == left) /* Turn up */
+	  move = up;
+	else if (move == right) /* Turn down */
+	  move = down;
+
+	*cellp = fgetc(stdin);
+	break;
     }
 
     switch (move)

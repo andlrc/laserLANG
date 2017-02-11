@@ -26,6 +26,9 @@ MEMORY MANAGEMENT
 
        "   Output numeric value from the current memory cell
 
+       ~ and s
+           Read ASCII character to current memory cell
+
 CONTROL FLOW
        +   Turn  the laser 90 degree clockwise when the current memory cell is
            positive, counter clockwise when negative. Continue unhindered when
@@ -46,6 +49,14 @@ CONTROL FLOW
        ' and "
            If the laser hits these going on the x axis it will shatter, other‐
            wise it will continue unhindered.
+
+       ~   If the laser hit this going downwards it will reflect  and  to  the
+           right, if it hits going upwards it will reflect to the left, other‐
+           wise it will continue unhindered.
+
+       s   If the laser hit this going left it will  reflect  upwards,  if  it
+           hits  going right it will reflect downwards, otherwise it will con‐
+           tinue unhindered.
 
        <   If the laser hit this going right it  will  shatter,  otherwise  it
            will continue towards left.

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 #define PROGRAM_NAME "laserLANG"
 #define MAP_MAX_X 256
@@ -60,6 +61,28 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
       return 1;
     map_x++;
   }
+
+  return 0;
+}
+
+int printd(enum MOVEMENT move,           /* Print debug information about */
+	   uint8_t pos_x, uint8_t pos_y, /* cells and laser position      */
+	   char cells[CELLS_MAX])
+{
+  /* TODO: Should a char array be used here? */
+  fprintf(stderr, "move = %d, xy = {%d, %d}, cells = {%d",
+	  move,
+	  pos_x, pos_y,
+	  cells[0]);
+
+  uint8_t last_used = CELLS_MAX - 1; /* Stupid way to trim off trailing zeros */
+  while (last_used > 0 && cells[--last_used] == 0);
+
+  for (int i = 1; i <= last_used; i++)
+  {
+    fprintf(stderr, ", %d", cells[i]);
+  }
+  fprintf(stderr, "}\n");
 
   return 0;
 }
@@ -204,15 +227,7 @@ int shoot_laser(char map[][MAP_MAX_X])
 	break;
 
       case 'p': /* Debug */
-	printf("d(%d) xy(%d, %d) near(%d, %d, %d, %d, %d) p(%d)\n",
-	    move,
-	    pos_x, pos_y,
-	    *(cellp - 2), /* TODO: Can be out of bound */
-	    *(cellp - 1), /* Can be out of bound */
-	    *cellp,
-	    *(cellp + 1), /* Can be out of bound */
-	    *(cellp + 2), /* Can be out of bound */
-	    cellp);
+	printd(move, pos_x, pos_y, cells);
 	break;
 
       case '~': /* Read ASCII input character */

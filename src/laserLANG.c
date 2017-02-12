@@ -16,7 +16,7 @@ enum MOVEMENT
   left
 };
 
-int skip_comment(FILE *fh, char map[][MAP_MAX_X], uint8_t map_y)
+int skip_comment(FILE *fh)
 {
   char c = '0';
   while (c != '\n')
@@ -39,7 +39,7 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
 
     if (map_x == 0 && c == '#') /* Skip shebang, and lines starting with # */
     {
-      if (skip_comment(fh, map, map_y) != 0) break;
+      if (skip_comment(fh) != 0) break;
       map_x = 0;
       continue;
     }

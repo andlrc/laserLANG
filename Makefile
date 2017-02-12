@@ -1,17 +1,25 @@
-laserLANG: src/laserLANG.c
-	gcc -o laserLANG src/laserLANG.c
+CC=gcc
+CFLAGS=
+
+PRGNAME=laserLANG
+DESTDIR=
+CMDDIR=$(DESTDIR)/usr/bin
+MANDIR=$(DESTDIR)/usr/share/man/man1
+
+$(PRGNAME): src/laserLANG.c
+	$(CC) $(CFLAGS) -o $(PRGNAME) src/laserLANG.c
 
 README: laserLANG.1
 	MANWIDTH=80 man -l laserLANG.1 > README
 
 install: laserLANG README laserLANG.1
-	cp ./laserLANG /usr/bin/laserLANG
-	cp ./laserLANG.1 /usr/share/man/man1/laserLANG.1
+	cp $(PRGNAME) $(CMDDIR)/$(PRGNAME)
+	cp laserLANG.1 $(MANDIR)/$(PRGNAME).1
 
 clean:
 	rm README
-	rm laserLANG
+	rm $(PRGNAME)
 
 uninstall:
-	rm /usr/bin/laserLANG
-	rm /usr/share/man/man1/laserLANG.1
+	rm $(CMDDIR)/$(PRGNAME)
+	rm $(MANDIR)/$(PRGNAME).1

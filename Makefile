@@ -9,5 +9,9 @@ install: laserLANG README laserLANG.1
 	cp ./laserLANG.1 /usr/share/man/man1/laserLANG.1
 
 clean:
+	rm README
+	rm laserLANG
+
+uninstall:
 	rm /usr/bin/laserLANG
 	rm /usr/share/man/man1/laserLANG.1

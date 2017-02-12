@@ -66,13 +66,15 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
 }
 
 int printd(enum MOVEMENT move,           /* Print debug information about */
-	   uint8_t pos_x, uint8_t pos_y, /* cells and laser position      */
+	   uint8_t pos_y, uint8_t pos_x, /* cells and laser position      */
+	   char map[][MAP_MAX_X],
 	   char cells[CELLS_MAX])
 {
   /* TODO: Should a char array be used here? */
-  fprintf(stderr, "move = %d, xy = {%d, %d}, cells = {%d",
+  fprintf(stderr, "move = %d, xy = {%d, %d}, char = %c, cells = {%d",
 	  move,
 	  pos_x, pos_y,
+	  map[pos_y][pos_x],
 	  cells[0]);
 
   uint8_t last_used = CELLS_MAX - 1; /* Stupid way to trim off trailing zeros */
@@ -227,7 +229,7 @@ int shoot_laser(char map[][MAP_MAX_X])
 	break;
 
       case 'p': /* Debug */
-	printd(move, pos_x, pos_y, cells);
+	printd(move, pos_x, pos_y, map, cells);
 	break;
 
       case '~': /* Read ASCII input character */

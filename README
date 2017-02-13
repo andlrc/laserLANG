@@ -11,8 +11,7 @@ DESCRIPTION
        ioLANG and brainfuck.
 
 MEMORY MANAGEMENT
-       Each memory cell is an signed char, capable of containing at least  the
-       [-127, +127] range.
+       Each memory cell is an signed 32 bit integer.
 
        >   Move memory pointer right
 

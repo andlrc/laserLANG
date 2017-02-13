@@ -68,7 +68,7 @@ int read_map(FILE *fh, char map[][MAP_MAX_X])
 int printd(enum MOVEMENT move,           /* Print debug information about */
 	   uint8_t pos_y, uint8_t pos_x, /* cells and laser position      */
 	   char map[][MAP_MAX_X],
-	   char cells[CELLS_MAX])
+	   int32_t cells[CELLS_MAX])
 {
   /* TODO: Should a char array be used here? */
   fprintf(stderr, "move = %d, xy = {%d, %d}, char = %c, cells = {%d",
@@ -95,8 +95,8 @@ int shoot_laser(char map[][MAP_MAX_X])
   uint8_t pos_y = 0;
   enum MOVEMENT move = right;
 
-  int8_t cells[CELLS_MAX] = {0};
-  char *cellp = cells;
+  int32_t cells[CELLS_MAX] = {0};
+  int32_t *cellp = cells;
 
   for (;;)
   {

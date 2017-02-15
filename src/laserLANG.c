@@ -238,7 +238,8 @@ int shoot_laser(char map[][MAP_MAX_X])
 	else if (move == down) /* Turn right */
 	  move = right;
 
-	*cellp = fgetc(stdin);
+	if ((*cellp = fgetc(stdin)) == EOF)
+	  return 1;
 	break;
 
       case 's': /* Read ASCII input character */
@@ -247,7 +248,8 @@ int shoot_laser(char map[][MAP_MAX_X])
 	else if (move == right) /* Turn down */
 	  move = down;
 
-	*cellp = fgetc(stdin);
+	if ((*cellp = fgetc(stdin)) == EOF)
+	  return 1;
 	break;
     }
 
@@ -306,5 +308,5 @@ int main(int argc, char *argv[])
     return rc;
   }
 
-  shoot_laser(map);
+  return shoot_laser(map);
 }

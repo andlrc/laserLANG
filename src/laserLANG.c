@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include <fcntl.h>
 #include <stdbool.h>
@@ -66,22 +68,30 @@ static int read_map(FILE * fh, char map[][MAP_MAX_X])
 	return 0;
 }
 
-static int printd(enum MOVEMENT move,	/* Print debug information about */
-		  uint8_t pos_y, uint8_t pos_x,	/* cells and laser position */
+static int printd(enum MOVEMENT move,
+		  uint8_t pos_y, uint8_t pos_x,
 		  char map[][MAP_MAX_X], int32_t cells[CELLS_MAX])
-{
-	/* TODO: Should a char array be used here? */
-	fprintf(stderr, "move = %d, xy = {%d, %d}, char = %c, cells = {%d",
-		move, pos_x, pos_y, map[pos_y][pos_x], cells[0]);
+{	/* Print debug information about  cells and laser position */
+	char *out = malloc(2048);
+	char *pout = out;
 
 	uint8_t last_used = CELLS_MAX - 1;	/* Stupid way to trim off
 						 * trailing zeros */
 	while (last_used > 0 && cells[--last_used] == 0);
 
-	for (int i = 1; i <= last_used; i++) {
-		fprintf(stderr, ", %d", cells[i]);
+	for (int i = 0; i <= last_used; i++) {
+		if (i > 0) {
+			pout[0] = ',';
+			pout++;
+		}
+		sprintf(pout, "%d", cells[i]);
+		pout += strlen(pout);
 	}
-	fprintf(stderr, "}\n");
+
+	fprintf(stderr, "move = %d, xy = {%d, %d}, char = %c, cells = {%s}\n",
+		move, pos_x, pos_y, map[pos_y][pos_x], out);
+
+	free(out);
 
 	return 0;
 }

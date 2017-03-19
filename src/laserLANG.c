@@ -37,7 +37,8 @@ static int read_map(FILE * fh, char map[][MAP_MAX_X])
 	for (;;) {
 		char c = fgetc(fh);
 
-		if (map_x == 0 && c == '#') {	/* Skip shebang, and lines starting with # */
+		if (map_x == 0 && c == '#') {	/* Skip shebang, and lines
+						 * starting with # */
 			if (skip_comment(fh) != 0)
 				break;
 			map_x = 0;
@@ -66,14 +67,15 @@ static int read_map(FILE * fh, char map[][MAP_MAX_X])
 }
 
 static int printd(enum MOVEMENT move,	/* Print debug information about */
-		  uint8_t pos_y, uint8_t pos_x,	/* cells and laser position      */
+		  uint8_t pos_y, uint8_t pos_x,	/* cells and laser position */
 		  char map[][MAP_MAX_X], int32_t cells[CELLS_MAX])
 {
 	/* TODO: Should a char array be used here? */
 	fprintf(stderr, "move = %d, xy = {%d, %d}, char = %c, cells = {%d",
 		move, pos_x, pos_y, map[pos_y][pos_x], cells[0]);
 
-	uint8_t last_used = CELLS_MAX - 1;	/* Stupid way to trim off trailing zeros */
+	uint8_t last_used = CELLS_MAX - 1;	/* Stupid way to trim off
+						 * trailing zeros */
 	while (last_used > 0 && cells[--last_used] == 0);
 
 	for (int i = 1; i <= last_used; i++) {
@@ -114,36 +116,43 @@ static int shoot_laser(char map[][MAP_MAX_X])
 			break;
 
 		case '-':	/* Add one to memory cell */
-			if (move != left && move != right)	/* Can only access on x axis */
+			if (move != left && move != right)	/* Can only
+								 * access on x
+								 * axis */
 				return 0;
 
 			++*cellp;
 			break;
 
 		case '\'':	/* Subtract one to memory cell */
-			if (move != up && move != down)	/* Can only access on y axis */
+			if (move != up && move != down)	/* Can only access on y
+							 * axis */
 				return 0;
 
 			--*cellp;
 			break;
 
-		case '=':	/* Output ascii character from current memory cell */
-			if (move != left && move != right)	/* Can only access on y axis */
+		case '=':	/* Output ascii character from current memory
+				 * cell */
+			if (move != left && move != right)	/* Can only
+								 * access on y
+								 * axis */
 				return 0;
 
 			printf("%c", *cellp);
 			break;
 
-		case '"':	/* Output numeric value from current memory cell */
-			if (move != up && move != down)	/* Can only access on x axis */
+		case '"':	/* Output numeric value from current cell */
+			if (move != up && move != down)	/* Can only access on x
+							 * axis */
 				return 0;
 
 			printf("%d", *cellp);
 			break;
 
-		case '+':	/* Turn 90 deg clockwise when current memory cell is positive,
-				 * 90 deg counter clockwise when negative and go straight when
-				 * zero
+		case '+':	/* Turn 90 deg clockwise when current memory
+				 * cell is positive, 90 deg counter clockwise
+				 * when negative and go straight when zero
 				 */
 			if (*cellp > 0) {	/* Clockwise */
 				move++;
@@ -156,10 +165,9 @@ static int shoot_laser(char map[][MAP_MAX_X])
 			}
 			break;
 
-		case '#':	/* Turn 90 deg counter clockwise when current memory cell is
-				 * positive, * 90 deg clockwise when negative and go straight
-				 * when zero
-				 */
+		case '#':	/* Turn 90 deg counter clockwise when current
+				 * memory cell is positive, * 90 deg clockwise
+				 * when negative and go straight when zero */
 			if (*cellp > 0) {	/* Counter Clockwise */
 				move--;
 				if (move < 0)
@@ -205,13 +213,15 @@ static int shoot_laser(char map[][MAP_MAX_X])
 			}
 			break;
 
-		case 'v':	/* Make left and right go down, but fail when going up */
+		case 'v':	/* Make left and right go down, but fail when
+				 * going up */
 			if (move == up)	/* Cannot come from below */
 				return 0;
 			move = down;
 			break;
 
-		case '^':	/* Make left and right go up, but fail when going down */
+		case '^':	/* Make left and right go up, but fail when
+				 * going down */
 			if (move == down)	/* Cannot come from above */
 				return 0;
 			move = up;
